@@ -50,26 +50,37 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background:
+    /* “Sound wave” rings centered on the pointer */
+    repeating-radial-gradient(
+      circle at calc(var(--mx) * 100%) calc(var(--my) * 100%),
+      rgba(40, 255, 170, 0.0) 0px,
+      rgba(40, 255, 170, 0.0) 18px,
+      rgba(40, 255, 170, 0.12) 22px,
+      rgba(40, 255, 170, 0.0) 30px
+    ),
+    /* Green focus glow */
     radial-gradient(
-      1100px 700px at calc(var(--mx) * 100%) calc(var(--my) * 100%),
-      rgba(255, 48, 88, 0.18),
+      900px 650px at calc(var(--mx) * 100%) calc(var(--my) * 100%),
+      rgba(40, 255, 170, 0.16),
+      transparent 58%
+    ),
+    /* Supporting depth so the waves don’t look flat */
+    radial-gradient(
+      1100px 800px at 70% 10%,
+      rgba(255, 255, 255, 0.05),
       transparent 55%
     ),
     radial-gradient(
-      900px 600px at calc((1 - var(--mx)) * 100%) calc(var(--my) * 100%),
-      rgba(60, 120, 255, 0.14),
-      transparent 58%
-    ),
-    radial-gradient(
-      1000px 700px at 50% calc((1 - var(--my)) * 100%),
-      rgba(40, 255, 170, 0.08),
-      transparent 60%
-    ),
-    radial-gradient(1200px 700px at 65% 20%, rgba(255, 255, 255, 0.06), transparent 55%),
-    radial-gradient(900px 500px at 20% 10%, rgba(255, 255, 255, 0.04), transparent 50%);
-  filter: saturate(110%) blur(0.2px);
+      900px 600px at 15% 25%,
+      rgba(255, 255, 255, 0.035),
+      transparent 55%
+    );
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+  filter: saturate(120%) blur(0.35px);
   transform: translate3d(0, 0, 0);
-  animation: bg-drift 18s ease-in-out infinite;
+  animation:
+    bg-drift 16s ease-in-out infinite,
+    wave-shift 3.8s ease-in-out infinite;
 }
 
 @keyframes bg-drift {
@@ -81,6 +92,18 @@ body::before {
   }
   100% {
     transform: translate3d(-0.6%, -0.3%, 0) scale(1.02);
+  }
+}
+
+@keyframes wave-shift {
+  0% {
+    background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+  }
+  50% {
+    background-position: 18px -10px, -8px 12px, 10px 8px, -6px -6px;
+  }
+  100% {
+    background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px;
   }
 }
 
