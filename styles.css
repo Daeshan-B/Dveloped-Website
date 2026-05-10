@@ -50,59 +50,52 @@ body {
 body::before {
   content: "";
   position: fixed;
-  inset: -20%;
+  inset: -28%;
   z-index: -1;
   pointer-events: none;
   background:
-    linear-gradient(var(--grid-line-soft) 1px, transparent 1px),
-    linear-gradient(90deg, var(--grid-line-soft) 1px, transparent 1px),
-    linear-gradient(rgba(255, 255, 255, 0.02) 50%, transparent 50%),
-    /* Digital wave bands centered on the delayed pointer */
+    radial-gradient(
+      1100px 760px at calc(var(--mx) * 100%) calc(var(--my) * 100%),
+      rgba(56, 255, 173, 0.26),
+      rgba(56, 255, 173, 0.12) 28%,
+      rgba(56, 255, 173, 0.03) 48%,
+      transparent 68%
+    ),
     repeating-radial-gradient(
       circle at calc(var(--mx) * 100%) calc(var(--my) * 100%),
       rgba(56, 255, 173, 0) 0px,
-      rgba(56, 255, 173, 0) 16px,
-      rgba(56, 255, 173, 0.18) 16px,
-      rgba(56, 255, 173, 0.18) 20px,
-      rgba(56, 255, 173, 0) 20px,
-      rgba(56, 255, 173, 0) 34px
+      rgba(56, 255, 173, 0) 26px,
+      rgba(56, 255, 173, 0.12) 34px,
+      rgba(56, 255, 173, 0.08) 42px,
+      rgba(56, 255, 173, 0) 56px
     ),
     radial-gradient(
-      760px 520px at calc(var(--mx) * 100%) calc(var(--my) * 100%),
-      rgba(56, 255, 173, 0.2),
-      rgba(56, 255, 173, 0.06) 38%,
-      transparent 62%
-    ),
-    radial-gradient(
-      420px 280px at calc(var(--mx) * 100%) calc(var(--my) * 100%),
-      rgba(255, 255, 255, 0.09),
+      1400px 980px at 78% 8%,
+      rgba(56, 255, 173, 0.1),
       transparent 58%
     ),
     radial-gradient(
-      1100px 800px at 70% 10%,
-      rgba(255, 255, 255, 0.05),
-      transparent 55%
+      1200px 840px at 10% 24%,
+      rgba(120, 255, 220, 0.08),
+      transparent 60%
     ),
-    radial-gradient(
-      900px 600px at 15% 25%,
-      rgba(255, 255, 255, 0.035),
-      transparent 55%
-    );
+    linear-gradient(var(--grid-line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line-soft) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.018) 50%, transparent 50%);
   background-size:
-    28px 28px,
-    28px 28px,
-    100% 4px,
     100% 100%,
     100% 100%,
     100% 100%,
-    100% 100%;
-  filter: saturate(130%);
-  transform: translate3d(0, 0, 0);
+    100% 100%,
+    32px 32px,
+    32px 32px,
+    100% 5px;
+  filter: saturate(145%) blur(42px);
+  transform: translate3d(0, 0, 0) scale(1.06);
   animation:
-    bg-drift 16s ease-in-out infinite,
-    wave-shift 4.6s linear infinite;
-  image-rendering: pixelated;
-  opacity: 0.95;
+    bg-drift 18s ease-in-out infinite,
+    wave-shift 8s linear infinite;
+  opacity: 0.98;
 }
 
 body::after {
@@ -112,37 +105,38 @@ body::after {
   z-index: -1;
   pointer-events: none;
   background:
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.02) 0%,
-      rgba(0, 0, 0, 0.12) 48%,
-      rgba(0, 0, 0, 0.02) 100%
-    );
+    radial-gradient(
+      700px 420px at calc(var(--mx) * 100%) calc(var(--my) * 100%),
+      rgba(255, 255, 255, 0.05),
+      transparent 68%
+    ),
+    linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18));
   mix-blend-mode: multiply;
-  opacity: 0.9;
+  filter: blur(18px);
+  opacity: 0.85;
 }
 
 @keyframes bg-drift {
   0% {
-    transform: translate3d(-0.6%, -0.3%, 0) scale(1.02);
+    transform: translate3d(-1.2%, -0.8%, 0) scale(1.06);
   }
   50% {
-    transform: translate3d(0.6%, 0.3%, 0) scale(1.03);
+    transform: translate3d(1%, 0.7%, 0) scale(1.09);
   }
   100% {
-    transform: translate3d(-0.6%, -0.3%, 0) scale(1.02);
+    transform: translate3d(-1.2%, -0.8%, 0) scale(1.06);
   }
 }
 
 @keyframes wave-shift {
   0% {
-    background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+    background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
   }
   50% {
-    background-position: 18px -10px, -8px 12px, 10px 8px, -6px -6px;
+    background-position: 10px -6px, 26px -20px, -16px 10px, 14px 12px, 6px 4px, -6px -4px, 0px 2px;
   }
   100% {
-    background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+    background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
   }
 }
 
