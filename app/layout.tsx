@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Motion from "./motion";
 
 export const metadata: Metadata = {
   title: "Dveloped",
@@ -10,8 +11,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Motion />
+        {children}
+      </body>
     </html>
   );
 }
-

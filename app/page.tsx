@@ -37,11 +37,10 @@ export default function HomePage() {
       </header>
 
       <main id="main" className="main" role="main">
-        <section className="hero" aria-labelledby="hero-title">
-          <div className="hero__stripe" aria-hidden="true" />
+        <section className="hero reveal" aria-labelledby="hero-title">
 
           <div className="container hero__grid">
-            <div className="hero__copy">
+            <div className="hero__copy reveal">
               <p className="eyebrow">Product engineering studio</p>
               <h1 id="hero-title" className="display">
                 We design, build, and ship software teams rely on.
@@ -78,7 +77,7 @@ export default function HomePage() {
             </div>
 
             <div
-              className="hero__panel"
+              className="hero__panel reveal"
               aria-label="Command palette preview (decorative)"
             >
               <div className="palette" role="presentation">
@@ -129,9 +128,13 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section id="products" className="section" aria-labelledby="products-title">
+        <section
+          id="products"
+          className="section reveal"
+          aria-labelledby="products-title"
+        >
           <div className="container">
-            <header className="section__header">
+            <header className="section__header reveal">
               <h2 id="products-title" className="h2">
                 What we do
               </h2>
@@ -142,7 +145,7 @@ export default function HomePage() {
             </header>
 
             <div className="grid3">
-              <article className="card">
+              <article className="card reveal">
                 <div className="card__tag">Product</div>
                 <h3 className="h3">Ideas to outcomes</h3>
                 <p className="body">
@@ -151,7 +154,7 @@ export default function HomePage() {
                 </p>
               </article>
 
-              <article className="card">
+              <article className="card reveal">
                 <div className="card__tag">Engineering</div>
                 <h3 className="h3">Build &amp; modernization</h3>
                 <p className="body">
@@ -160,7 +163,7 @@ export default function HomePage() {
                 </p>
               </article>
 
-              <article className="card">
+              <article className="card reveal">
                 <div className="card__tag">Operations</div>
                 <h3 className="h3">Reliability &amp; scale</h3>
                 <p className="body">
@@ -174,11 +177,11 @@ export default function HomePage() {
 
         <section
           id="principles"
-          className="section"
+          className="section reveal"
           aria-labelledby="principles-title"
         >
           <div className="container">
-            <header className="section__header">
+            <header className="section__header reveal">
               <h2 id="principles-title" className="h2">
                 How we build
               </h2>
@@ -189,7 +192,7 @@ export default function HomePage() {
             </header>
 
             <div className="grid2">
-              <article className="card card--tight">
+              <article className="card card--tight reveal">
                 <h3 className="h3">Clarity over complexity</h3>
                 <p className="body">
                   Simple plans, clean interfaces, and principled decisions—so
@@ -202,7 +205,7 @@ export default function HomePage() {
                 </ul>
               </article>
 
-              <article className="card card--tight">
+              <article className="card card--tight reveal">
                 <h3 className="h3">Quality by default</h3>
                 <p className="body">
                   Reliability, performance, and security are built in—not added
@@ -220,11 +223,11 @@ export default function HomePage() {
 
         <section
           id="contact"
-          className="section section--cta"
+          className="section section--cta reveal"
           aria-labelledby="cta-title"
         >
           <div className="container">
-            <div className="cta">
+            <div className="cta reveal">
               <div className="cta__copy">
                 <h2 id="cta-title" className="h2">
                   Follow what we ship.
@@ -247,7 +250,7 @@ export default function HomePage() {
         </section>
       </main>
 
-      <footer className="footer" role="contentinfo">
+      <footer className="footer reveal" role="contentinfo">
         <div className="container footer__inner">
           <div className="footer__brand">
             <div className="brand brand--footer">

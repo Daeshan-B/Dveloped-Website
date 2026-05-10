@@ -19,6 +19,9 @@
   --maxw: 1240px;
   --gutter: 24px;
   --section: 96px;
+
+  --mx: 0.5;
+  --my: 0.35;
 }
 
 * {
@@ -33,13 +36,52 @@ body {
 body {
   margin: 0;
   color: var(--ink);
-  background: radial-gradient(1200px 700px at 65% 20%, rgba(255, 255, 255, 0.06), transparent 55%),
-    radial-gradient(900px 500px at 20% 10%, rgba(255, 255, 255, 0.04), transparent 50%),
-    var(--canvas);
+  background: var(--canvas);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
     "Apple Color Emoji", "Segoe UI Emoji";
   font-feature-settings: "calt" 1, "kern" 1, "liga" 1, "ss03" 1;
   line-height: 1.6;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      1100px 700px at calc(var(--mx) * 100%) calc(var(--my) * 100%),
+      rgba(255, 48, 88, 0.18),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 600px at calc((1 - var(--mx)) * 100%) calc(var(--my) * 100%),
+      rgba(60, 120, 255, 0.14),
+      transparent 58%
+    ),
+    radial-gradient(
+      1000px 700px at 50% calc((1 - var(--my)) * 100%),
+      rgba(40, 255, 170, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(1200px 700px at 65% 20%, rgba(255, 255, 255, 0.06), transparent 55%),
+    radial-gradient(900px 500px at 20% 10%, rgba(255, 255, 255, 0.04), transparent 50%);
+  filter: saturate(110%) blur(0.2px);
+  transform: translate3d(0, 0, 0);
+  animation: bg-drift 18s ease-in-out infinite;
+}
+
+@keyframes bg-drift {
+  0% {
+    transform: translate3d(-0.6%, -0.3%, 0) scale(1.02);
+  }
+  50% {
+    transform: translate3d(0.6%, 0.3%, 0) scale(1.03);
+  }
+  100% {
+    transform: translate3d(-0.6%, -0.3%, 0) scale(1.02);
+  }
 }
 
 a {
@@ -131,7 +173,7 @@ a {
 
 .topbar__actions {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .btn {
@@ -152,6 +194,66 @@ a {
 
 .btn:hover {
   background: rgba(255, 255, 255, 0.04);
+}
+
+.btn {
+  transition:
+    transform 140ms ease,
+    background-color 140ms ease,
+    border-color 140ms ease,
+    filter 140ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0px) scale(0.99);
+}
+
+.nav__link,
+.brand,
+.card,
+.hero__panel,
+.stat,
+.row {
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.card:hover,
+.hero__panel:hover,
+.stat:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  filter: saturate(105%);
+  transition:
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-reduced-motion="true"] body::before {
+  animation: none;
+}
+
+[data-reduced-motion="true"] .reveal {
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
 
 .btn--primary {
@@ -181,25 +283,6 @@ a {
 .hero {
   position: relative;
   padding: 64px 0 var(--section);
-}
-
-.hero__stripe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 62px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02)),
-    repeating-linear-gradient(
-      -20deg,
-      rgba(255, 64, 64, 0.55) 0px,
-      rgba(255, 64, 64, 0.55) 18px,
-      rgba(255, 18, 72, 0.25) 18px,
-      rgba(255, 18, 72, 0.25) 38px
-    );
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.2));
 }
 
 .hero__grid {
@@ -529,7 +612,7 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .fineprint {
@@ -679,4 +762,3 @@ a {
     font-size: 34px;
   }
 }
-
