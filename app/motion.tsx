@@ -9,12 +9,15 @@ function clamp01(value: number) {
 export default function Motion() {
   useEffect(() => {
     const root = document.documentElement;
+    let targetX = 0.5;
+    let targetY = 0.35;
+    let currentX = 0.5;
+    let currentY = 0.35;
+    let frame = 0;
 
     const onPointerMove = (event: PointerEvent) => {
-      const x = clamp01(event.clientX / Math.max(1, window.innerWidth));
-      const y = clamp01(event.clientY / Math.max(1, window.innerHeight));
-      root.style.setProperty("--mx", `${x}`);
-      root.style.setProperty("--my", `${y}`);
+      targetX = clamp01(event.clientX / Math.max(1, window.innerWidth));
+      targetY = clamp01(event.clientY / Math.max(1, window.innerHeight));
     };
 
     window.addEventListener("pointermove", onPointerMove, { passive: true });
@@ -26,6 +29,16 @@ export default function Motion() {
       root.dataset.reducedMotion = "true";
       return () => window.removeEventListener("pointermove", onPointerMove);
     }
+
+    const tick = () => {
+      currentX += (targetX - currentX) * 0.08;
+      currentY += (targetY - currentY) * 0.08;
+      root.style.setProperty("--mx", `${currentX}`);
+      root.style.setProperty("--my", `${currentY}`);
+      frame = window.requestAnimationFrame(tick);
+    };
+
+    frame = window.requestAnimationFrame(tick);
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -45,10 +58,10 @@ export default function Motion() {
 
     return () => {
       window.removeEventListener("pointermove", onPointerMove);
+      window.cancelAnimationFrame(frame);
       observer.disconnect();
     };
   }, []);
 
   return null;
 }
-

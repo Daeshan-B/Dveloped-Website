@@ -5,6 +5,10 @@
   --surface-card: #121212;
   --hairline: #242728;
   --hairline-strong: rgba(255, 255, 255, 0.16);
+  --grid-line: rgba(56, 255, 173, 0.08);
+  --grid-line-soft: rgba(56, 255, 173, 0.03);
+  --accent-green: #38ffad;
+  --accent-green-soft: rgba(56, 255, 173, 0.14);
   --ink: #f4f4f6;
   --ink-muted: rgba(244, 244, 246, 0.72);
   --ink-faint: rgba(244, 244, 246, 0.56);
@@ -50,21 +54,30 @@ body::before {
   z-index: -1;
   pointer-events: none;
   background:
-    /* “Sound wave” rings centered on the pointer */
+    linear-gradient(var(--grid-line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line-soft) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.02) 50%, transparent 50%),
+    /* Digital wave bands centered on the delayed pointer */
     repeating-radial-gradient(
       circle at calc(var(--mx) * 100%) calc(var(--my) * 100%),
-      rgba(40, 255, 170, 0.0) 0px,
-      rgba(40, 255, 170, 0.0) 18px,
-      rgba(40, 255, 170, 0.12) 22px,
-      rgba(40, 255, 170, 0.0) 30px
+      rgba(56, 255, 173, 0) 0px,
+      rgba(56, 255, 173, 0) 16px,
+      rgba(56, 255, 173, 0.18) 16px,
+      rgba(56, 255, 173, 0.18) 20px,
+      rgba(56, 255, 173, 0) 20px,
+      rgba(56, 255, 173, 0) 34px
     ),
-    /* Green focus glow */
     radial-gradient(
-      900px 650px at calc(var(--mx) * 100%) calc(var(--my) * 100%),
-      rgba(40, 255, 170, 0.16),
+      760px 520px at calc(var(--mx) * 100%) calc(var(--my) * 100%),
+      rgba(56, 255, 173, 0.2),
+      rgba(56, 255, 173, 0.06) 38%,
+      transparent 62%
+    ),
+    radial-gradient(
+      420px 280px at calc(var(--mx) * 100%) calc(var(--my) * 100%),
+      rgba(255, 255, 255, 0.09),
       transparent 58%
     ),
-    /* Supporting depth so the waves don’t look flat */
     radial-gradient(
       1100px 800px at 70% 10%,
       rgba(255, 255, 255, 0.05),
@@ -75,12 +88,38 @@ body::before {
       rgba(255, 255, 255, 0.035),
       transparent 55%
     );
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
-  filter: saturate(120%) blur(0.35px);
+  background-size:
+    28px 28px,
+    28px 28px,
+    100% 4px,
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    100% 100%;
+  filter: saturate(130%);
   transform: translate3d(0, 0, 0);
   animation:
     bg-drift 16s ease-in-out infinite,
-    wave-shift 3.8s ease-in-out infinite;
+    wave-shift 4.6s linear infinite;
+  image-rendering: pixelated;
+  opacity: 0.95;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.02) 0%,
+      rgba(0, 0, 0, 0.12) 48%,
+      rgba(0, 0, 0, 0.02) 100%
+    );
+  mix-blend-mode: multiply;
+  opacity: 0.9;
 }
 
 @keyframes bg-drift {
@@ -161,8 +200,11 @@ a {
   width: 34px;
   height: 34px;
   border: 1px solid var(--hairline);
-  border-radius: var(--rounded-md);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  border-radius: 3px;
+  background:
+    linear-gradient(180deg, rgba(56, 255, 173, 0.16), rgba(56, 255, 173, 0.04)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+  box-shadow: inset 0 0 0 1px rgba(56, 255, 173, 0.08);
   display: grid;
   place-items: center;
   font-weight: 600;
@@ -184,7 +226,7 @@ a {
   font-size: 14px;
   color: var(--ink-muted);
   padding: 8px 10px;
-  border-radius: var(--rounded-md);
+  border-radius: 4px;
   border: 1px solid transparent;
 }
 
@@ -206,13 +248,15 @@ a {
   gap: 10px;
   height: 36px;
   padding: 0 16px;
-  border-radius: var(--rounded-md);
+  border-radius: 4px;
   border: 1px solid var(--hairline);
   background: rgba(255, 255, 255, 0.02);
   color: var(--ink);
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.01em;
+  text-transform: uppercase;
+  font-size: 12px;
 }
 
 .btn:hover {
@@ -251,7 +295,7 @@ a {
 .hero__panel:hover,
 .stat:hover {
   transform: translateY(-2px);
-  border-color: rgba(255, 255, 255, 0.14);
+  border-color: rgba(56, 255, 173, 0.24);
 }
 
 .reveal {
@@ -323,9 +367,11 @@ a {
   padding: 6px 10px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.02);
-  border-radius: 999px;
+  border-radius: 4px;
   font-size: 13px;
   color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .display {
@@ -359,8 +405,10 @@ a {
 
 .stat {
   border: 1px solid var(--hairline);
-  background: var(--surface);
-  border-radius: var(--rounded-lg);
+  background:
+    linear-gradient(180deg, rgba(56, 255, 173, 0.04), transparent 55%),
+    var(--surface);
+  border-radius: 4px;
   padding: 14px 14px 12px;
 }
 
@@ -379,15 +427,18 @@ a {
 
 .hero__panel {
   border: 1px solid var(--hairline);
-  border-radius: var(--rounded-xl);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+  border-radius: 6px;
+  background:
+    linear-gradient(180deg, rgba(56, 255, 173, 0.05), rgba(255, 255, 255, 0.01)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
   padding: 18px;
+  box-shadow: inset 0 0 0 1px rgba(56, 255, 173, 0.05);
 }
 
 .palette {
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: var(--surface);
-  border-radius: 14px;
+  border-radius: 4px;
   overflow: hidden;
 }
 
@@ -443,7 +494,7 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--rounded-sm);
+  border-radius: 3px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: var(--surface-card);
   color: var(--ink-muted);
@@ -460,10 +511,12 @@ a {
   display: block;
   height: 44px;
   padding: 0 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: var(--surface-elevated);
-  color: rgba(244, 244, 246, 0.5);
+  border-radius: 4px;
+  border: 1px solid rgba(56, 255, 173, 0.16);
+  background:
+    linear-gradient(180deg, rgba(56, 255, 173, 0.05), transparent 80%),
+    var(--surface-elevated);
+  color: rgba(244, 244, 246, 0.56);
   display: flex;
   align-items: center;
   font-size: 14px;
@@ -479,7 +532,7 @@ a {
   align-items: center;
   gap: 10px;
   padding: 10px 10px;
-  border-radius: 10px;
+  border-radius: 3px;
   border: 1px solid transparent;
 }
 
@@ -488,19 +541,19 @@ a {
 }
 
 .row:hover {
-  border-color: rgba(255, 255, 255, 0.06);
-  background: rgba(255, 255, 255, 0.02);
+  border-color: rgba(56, 255, 173, 0.2);
+  background: rgba(56, 255, 173, 0.04);
 }
 
 .row__icon {
   width: 24px;
   height: 24px;
-  border-radius: var(--rounded-sm);
+  border-radius: 2px;
   background: var(--surface-card);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(56, 255, 173, 0.16);
   display: grid;
   place-items: center;
-  color: rgba(244, 244, 246, 0.7);
+  color: rgba(56, 255, 173, 0.86);
   font-size: 12px;
 }
 
@@ -528,10 +581,10 @@ a {
 
 .hint {
   color: rgba(244, 244, 246, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(56, 255, 173, 0.16);
+  background: rgba(56, 255, 173, 0.04);
   padding: 2px 6px;
-  border-radius: var(--rounded-sm);
+  border-radius: 2px;
 }
 
 .sep {
@@ -575,9 +628,12 @@ a {
 
 .card {
   border: 1px solid var(--hairline);
-  background: var(--surface);
-  border-radius: var(--rounded-lg);
+  background:
+    linear-gradient(180deg, rgba(56, 255, 173, 0.035), transparent 55%),
+    var(--surface);
+  border-radius: 4px;
   padding: 18px;
+  box-shadow: inset 0 0 0 1px rgba(56, 255, 173, 0.04);
 }
 
 .card--tight {
@@ -589,12 +645,14 @@ a {
   align-items: center;
   height: 26px;
   padding: 0 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--ink-faint);
+  border-radius: 3px;
+  border: 1px solid rgba(56, 255, 173, 0.16);
+  background: rgba(56, 255, 173, 0.05);
+  color: rgba(56, 255, 173, 0.92);
   font-size: 12px;
   margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .h3 {
@@ -622,8 +680,10 @@ a {
 
 .cta {
   border: 1px solid var(--hairline);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
-  border-radius: var(--rounded-xl);
+  background:
+    linear-gradient(180deg, rgba(56, 255, 173, 0.05), rgba(255, 255, 255, 0.01)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+  border-radius: 6px;
   padding: 22px;
   display: grid;
   grid-template-columns: 1fr auto;
@@ -676,8 +736,10 @@ a {
 
 .linkcol__title {
   font-size: 12px;
-  color: var(--ink-faint);
+  color: var(--accent-green);
   margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .link {
