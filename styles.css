@@ -692,6 +692,63 @@ a {
   justify-content: flex-end;
 }
 
+.careers-hero {
+  align-items: stretch;
+}
+
+.jobs {
+  display: grid;
+  gap: 16px;
+}
+
+.job-card {
+  border: 1px solid var(--hairline);
+  background:
+    linear-gradient(180deg, rgba(56, 255, 173, 0.04), transparent 55%),
+    var(--surface);
+  border-radius: 4px;
+  padding: 22px;
+  box-shadow: inset 0 0 0 1px rgba(56, 255, 173, 0.04);
+}
+
+.job-card__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.job-card__meta {
+  color: var(--accent-green);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.job-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.job-block {
+  border: 1px solid rgba(56, 255, 173, 0.1);
+  background: rgba(255, 255, 255, 0.015);
+  border-radius: 4px;
+  padding: 16px;
+}
+
+.job-block__title {
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .fineprint {
   margin: 14px 0 0;
   color: var(--ink-faint);
@@ -817,6 +874,14 @@ a {
   .grid3,
   .grid2 {
     grid-template-columns: 1fr;
+  }
+
+  .job-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .job-card__header {
+    flex-direction: column;
   }
 
   .cta {

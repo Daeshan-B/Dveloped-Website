@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 function clamp01(value: number) {
   return Math.min(1, Math.max(0, value));
 }
 
 export default function Motion() {
+  const pathname = usePathname();
+
   useEffect(() => {
     const root = document.documentElement;
     let targetX = 0.5;
@@ -53,6 +56,7 @@ export default function Motion() {
     );
 
     for (const el of document.querySelectorAll<HTMLElement>(".reveal")) {
+      el.classList.remove("is-in");
       observer.observe(el);
     }
 
@@ -61,7 +65,7 @@ export default function Motion() {
       window.cancelAnimationFrame(frame);
       observer.disconnect();
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }

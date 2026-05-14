@@ -17,21 +17,15 @@ export default function HomePage() {
           </Link>
 
           <nav className="nav" aria-label="Primary">
-            <a className="nav__link" href="#products">
-              Products
-            </a>
-            <a className="nav__link" href="#principles">
-              Principles
-            </a>
-            <a className="nav__link" href="#contact">
-              Contact
-            </a>
+            <Link className="nav__link" href="/careers">
+              Careers
+            </Link>
           </nav>
 
           <div className="topbar__actions">
-            <a className="btn btn--primary" href="#contact">
-              Get in touch
-            </a>
+            <Link className="btn btn--primary" href="/careers">
+              View careers
+            </Link>
           </div>
         </div>
       </header>
@@ -55,6 +49,9 @@ export default function HomePage() {
                 <a className="btn btn--primary" href="#products">
                   Explore what we’re building
                 </a>
+                <Link className="btn btn--tertiary" href="/careers">
+                  Open roles
+                </Link>
                 <a className="btn btn--tertiary" href="#principles">
                   How we work
                 </a>
@@ -271,6 +268,9 @@ export default function HomePage() {
               <a className="link" href="#products">
                 Products
               </a>
+              <Link className="link" href="/careers">
+                Careers
+              </Link>
               <a className="link" href="#principles">
                 Principles
               </a>
